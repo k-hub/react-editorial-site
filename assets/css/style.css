@@ -1,0 +1,59 @@
+.container {
+    padding: 0;
+    width: 100%;
+}
+
+/* Styles for posts_index */
+.header {
+    margin: 0 0 50px 0;
+    padding: 25px 0;
+    text-align: center;
+    background-color: #efefef;
+}
+
+.posts {
+    display: flex;
+    width: 80%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+article img {
+    display: none;
+}
+
+article:first-child img {
+    display: inline-block;
+    width: 100%;
+}
+
+article:first-child {
+    width: 100%;
+    text-align: center;
+}
+
+article {
+    width: 50%;
+    margin: 25px 0;
+    padding: 0 25px;
+}
+
+article p {
+    text-align: left;
+    font-size: 18px;
+}
+
+.article-description {
+    font-style: italic;
+}
+
+
+.article-title {
+    text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+    article {
+        width: 100%;
+    }
+}
