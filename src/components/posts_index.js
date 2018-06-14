@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/index';
+import { Link } from 'react-router';
+// import Post from './post';
 
 class PostsIndex extends Component {
     componentDidMount() {
@@ -16,33 +18,55 @@ class PostsIndex extends Component {
         this.props.dispatch(fetchPosts());
     }
 
-    renderPosts() {
-        return this.props.posts.map((post, index) => {
-            return (
-                <article key={post.sys.id}>
-                <img src="https://placebear.com/800/500" alt=""/>
-                <h3 className="article-title">{post.fields.title}</h3>
-                <p className="article-description">{post.fields.description}</p>
-                <p className="article-content">{post.fields.content}</p>
+    // renderPosts() {
+    //     return this.props.posts.map((post, index) => {
+    //         return (
+    //             <article key={post.sys.id}>
+    //               <img src="https://placebear.com/800/500" alt=""/>
+    //               <h3 className="article-title">{post.fields.title}</h3>
+    //               <p className="article-description">{post.fields.description}</p>
+    //               <p className="article-content">{post.fields.content}</p>
+    //             </article>
+    //         );
+    //     });
+    // }
+
+    renderPostsCompact() {
+      return this.props.posts.map((post, index) => {
+          return (
+            <div className="post-card" key={post.sys.id}>
+              <Link to={{pathname: `/post/${post.sys.id}`}}>
+                <article>
+                  <img src="https://placebear.com/300/100"/>
+                  <h3 className="article-title">{post.fields.title}</h3>
+                  <p className="article-description">{post.fields.description}</p>
                 </article>
-            );
-        });
+              </Link>
+            </div>
+          );
+      });
     }
 
     render() {
-      const { posts, loading, error } = this.props;
+      const { posts, loading, error, imagesLoaded, imagesError } = this.props;
 
       if (loading) {
-        return <div className="loader">I am loading!</div>
+        return (
+          <div className="loader-wrapper">
+              <div className="loader"></div>
+          </div>
+        )
       } else if (error) {
-        return <div>Sorry, try refreshing the page.</div>
+        return <div>Sorry, we are experiencing technical difficulties. Please try again later.</div>
       }
 
       return(
-          <div>
+        <div>
           <h2 className="header">True Botanicals</h2>
-            <div className="posts">{this.renderPosts()}</div>
+          <div className="posts-tiles fade-in">
+            <div className="posts-compact">{this.renderPostsCompact()}</div>
           </div>
+        </div>
       );
     }
 }
